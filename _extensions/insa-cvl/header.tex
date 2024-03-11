@@ -1,0 +1,220 @@
+\usepackage{orcidlink}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{relsize}
+\usepackage[version=4]{mhchem}
+\usepackage[]{fontawesome5}
+\usepackage{physics}
+
+\usepackage{siunitx}
+\sisetup{per-mode = symbol}
+% url %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{url}
+\renewcommand{\UrlFont}{\ttfamily\smaller}
+\DeclareUrlCommand\email{\urlstyle{tt}\smaller}
+% colors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{chapterbarcolor}{named}{Red}
+\definecolor{muted}{rgb}{0.3725490 0.3725490 0.3803922}
+% columun %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{cols}[1][]{}{}
+\let\columns\cols
+\let\endcolumns\endcols
+\newenvironment{col}[2][]{\begin{minipage}[#1]{#2}\ignorespaces}{%
+\end{minipage}
+\ifhmode\unskip\fi
+\aftergroup\useignorespacesandallpars}
+
+\let\column\col
+\let\endcolumn\endcol
+
+\def\useignorespacesandallpars#1\ignorespaces\fi{#1\fi\ignorespacesandallpars}
+
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {\hfill}%
+}
+
+% itemize/enumerate%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{enumitem}
+\setlist{noitemsep,nosep,leftmargin=*}
+\setlist[1]{labelindent=\parindent,topsep=-.5em,partopsep=0pt} % < Usually a good idea
+\setlist[itemize,1]{label={\relsize{-2}\faIcon[regular]{square}}}
+\setlist[itemize,2]{label={\relsize{-3}\faIcon[regular]{circle}}}
+\setlist[itemize,3]{label={\relsize{-2}\faIcon[solid]{chevron-right}}}
+\setlist[description]{font=\smaller,topsep=0\baselineskip,parsep=0.5\baselineskip,}
+\setlist[description,1]{style=nextline, leftmargin=1em}
+
+% Theorem %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm}
+\newtheoremstyle{plain}          % name
+    {.5em}                       % Space above
+    {.5em}                       % Space below
+    {\itshape}                   % Body font
+    {}                           % Indent amount
+    {\sffamily\scshape\bfseries} % Theorem head font
+    {.}                          % Punctuation after theorem head
+    {.5em}                       % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+\newtheoremstyle{definition} % name
+    {.1em}                      % Space above
+    {.1em}                      % Space below
+    {}                           % Body font
+    {}                           % Indent amount
+    {\sffamily\scshape\color{green!20!black!80}}          % Theorem head font
+    {.}                          % Punctuation after theorem head
+    {.5em}                       % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+\newtheoremstyle{remark} % name
+    {.125em}                      % Space above
+    {.125em}                      % Space below
+    {\color{black!80}}           % Body font
+    {}                           % Indent amount
+    {\sffamily\color{black!80}}  % Theorem head font
+    {:}                          % Punctuation after theorem head
+    {.5em}                       % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+% part  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand*{\addparttocentry}[2]{%
+  \addtocentrydefault{part}{\partname\nobreakspace #1}{#2}%
+}
+
+\RedeclareSectionCommand[tocnumwidth=6em]{part}
+% chapter  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RedeclareSectionCommand[tocnumwidth=2.5em]{chapter}
+\RedeclareSectionCommand[tocnumwidth=3em]{section}
+\renewcommand\thechapter{{\rmfamily\@Roman\c@chapter}}
+%\RedeclareSectionCommand[style=section,indent=0pt,beforeskip=-2\baselineskip]{chapter}
+\renewcommand*{\raggedchapter}{\raggedleft}
+%\setkomafont{chapter}{\normalfont\sffamily\bfseries\scshape}
+\addtokomafont{chapter}{\scshape}
+
+\makeatletter
+\renewcommand*{\chapterformat}{{\thechapter\autodot}}
+\renewcommand*{\chapterheadmidvskip}{\enskip}
+\renewcommand{\chapterlinesformat}[3]{%
+\parbox{\dimexpr\linewidth-2\fboxrule-2\fboxsep}{\@hangfrom{#2}#3}%
+}
+\renewcommand{\chapterlineswithprefixformat}[3]{%
+\raggedchapter
+\interlinepenalty\@M
+\parbox{\dimexpr\linewidth-2\fboxrule-2\fboxsep}{%
+\raggedchapter{#2~\textcolor{chapterbarcolor}{\rule[-0.5em]{4pt}{1.75em}}~}#3%
+}
+\par\vskip-0.5em plus0.25em
+\rule{\linewidth}{2pt}%
+\par\nobreak
+}
+\makeatother
+
+\renewcommand{\chaptermark}[1]{\markboth{\sffamily\footnotesize Chap.\,\thechapter\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\sffamily\footnotesize\thesection\ #1}}
+
+\RedeclareSectionCommand[afterindent=false,beforeskip=0pt]{chapter}
+\RedeclareSectionCommand[afterindent=false,beforeskip=0.5\baselineskip,afterskip=0.25\baselineskip]{section}
+\RedeclareSectionCommand[afterindent=false,beforeskip=0.25\baselineskip,afterskip=0.15\baselineskip]{subsection}
+\RedeclareSectionCommand[afterindent=false,beforeskip=0.2\baselineskip,afterskip=0.05\baselineskip]{subsubsection}
+\RedeclareSectionCommand[afterindent=false,beforeskip=0.1\baselineskip,]{paragraph}
+\RedeclareSectionCommand[afterindent=false,font=\normalfont\itshape,beforeskip=0.1\baselineskip]{subparagraph}
+
+% Figure  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{4}
+
+\setlength\abovedisplayskip{0.5ex}%
+\setlength\belowdisplayskip{0.5ex}%
+\setlength\abovedisplayshortskip{0pt}%
+\setlength\belowdisplayshortskip{3pt}%
+% longtable patch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\def\LT@start{%
+  \let\LT@start\endgraf
+  \endgraf\penalty\z@\vskip\LTpre\endgraf
+   \ifdim \pagetotal<\pagegoal \else
+      \dimen@=\pageshrink
+      \advance \dimen@ 1sp %
+      \kern\dimen@\penalty 9999\endgraf \kern-\dimen@
+   \fi
+  \dimen@\pagetotal
+  \advance\dimen@ \ht\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi
+  \advance\dimen@ \dp\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi
+  \advance\dimen@ \ht\LT@foot
+  \edef\LT@reset@vfuzz{\vfuzz\the\vfuzz\vbadness\the\vbadness\relax}%
+  \vfuzz\maxdimen
+  \vbadness\@M
+  \setbox\tw@\copy\z@
+  \setbox\tw@\vsplit\tw@ to \ht\@arstrutbox
+  \setbox\tw@\vbox{\unvbox\tw@}%
+  \LT@reset@vfuzz
+  \advance\dimen@ \ht
+        \ifdim\ht\@arstrutbox>\ht\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@\dp
+        \ifdim\dp\@arstrutbox>\dp\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@ -\pagegoal
+  \ifdim \dimen@>\z@
+    \vfil\break
+  \else
+    \ifdim\pageshrink>\z@\pageshrink\z@\fi
+  \fi
+      \global\@colroom\@colht
+  \ifvoid\LT@foot\else
+    %\global\advance\vsize-\ht\LT@foot
+    \global\advance\@colroom-\ht\LT@foot
+    \dimen@\pagegoal\advance\dimen@-\ht\LT@foot\pagegoal\dimen@
+    \maxdepth\z@
+  \fi
+  \ifvoid\LT@firsthead\copy\LT@head\else\box\LT@firsthead\fi\nobreak
+  \output{\LT@output}}
+
+\def\LT@output{%
+  \ifnum\outputpenalty <-\@Mi
+    \ifnum\outputpenalty > -\LT@end@pen
+      \LT@err{floats and marginpars not allowed in a longtable}\@ehc
+    \else
+      \setbox\z@\vbox{\unvbox\@cclv}%
+      \ifdim \ht\LT@lastfoot>\ht\LT@foot
+        \dimen@\pagegoal
+        \advance\dimen@\ht\LT@foot
+        \advance\dimen@-\ht\LT@lastfoot
+        \ifdim\dimen@<\ht\z@
+          \setbox\@cclv\vbox{\unvbox\z@\copy\LT@foot\vss}%
+          \@makecol
+          \@outputpage
+          \global\vsize\@colroom
+          \setbox\z@\vbox{\box\LT@head}%
+        \fi
+      \fi
+        \unvbox\z@\box\ifvoid\LT@lastfoot\LT@foot\else\LT@lastfoot\fi
+    \fi
+  \else
+    \setbox\@cclv\vbox{\unvbox\@cclv\copy\LT@foot\vss}%
+    \@makecol
+    \@outputpage
+      \global\vsize\@colroom
+    \copy\LT@head\nobreak
+  \fi}
+\makeatother
+% Miscellaneous commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\muted}[1]{\textcolor{muted}{\smaller{#1}}}
+\DeclareMathOperator{\arcosh}{arcosh}
+\DeclareMathOperator{\arsinh}{arsinh}
+\DeclareDocumentCommand\acosh{}{\trigbraces{\arcosh}}
+\DeclareDocumentCommand\asinh{}{\trigbraces{\arsinh}}
+\AtBeginDocument{%
+\providecommand{\vv}[1]{\overrightarrow{#1}}
+\providecommand{\ee}{\mathrm{e}}
+\providecolor{alertext}{HTML}{E32518}
+\providecommand{\alert}[1]{\textcolor{alertext}{\textbf{#1}}}
+
+\providecommand{\IR}{\mathbb{R}}
+\providecommand{\II}{\mathbb{I}}
+
+\renewcommand{\Im}{\operatorname{Im}}
+\renewcommand{\Re}{\operatorname{Re}}
+}

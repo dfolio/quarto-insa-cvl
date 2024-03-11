@@ -1,0 +1,61 @@
+
+\usepackage{framed}
+
+\newcommand\titlegraphic[1]{\def\inserttitlegraphic{#1}}
+\titlegraphic{}
+
+% titlepage %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\setkomafont{formation}{\large\bfseries}
+\addtokomafont{subject}{\sffamily}
+\addtokomafont{title}{\scshape}
+\setkomafont{author}{\large}
+
+% Set title page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$if(titlehead)$\titlehead{$titlehead$}$endif$
+$if(titlegraphic)$
+\titlegraphic{\includegraphics{$titlegraphic$}}
+$endif$
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+$if(subject)$\subject{$subject$}
+$else$$if(book.genre)$\subject{$book.genre$}$endif$
+$endif$
+
+\def\authorshort{$if(author/allbutlast)$%
+$for(by-author/allbutlast)$${author.tex() }$sep$,~$endfor$ et~${ by-author/last:author.tex() }%
+$else$$for(by-author)$${ author.tex() }$endfor$$endif$}
+
+\author{$if(author/allbutlast)$%
+$for(by-author/allbutlast)$${author.tex() }$sep$\and~$endfor$\and~${ by-author/last:author.tex() }%
+$else$$for(by-author)$${ author.tex() }$endfor$$endif$}
+$if(uppertitleback)$
+\uppertitleback{uppertitleback}
+$endif$
+$if(lowertitleback)$
+\lowertitleback{lowertitleback}
+$else$
+\makeatletter
+\lowertitleback{\textcopyright \the\year, \authorshort$if(institute)$, $institute$$endif$, \faIcon[solid]{creative-commons-by}}
+\makeatother
+$endif$
+
+
+% head/foot %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[automark,pagestyleset=standard,markcase=used]{scrlayer-scrpage}
+\makeatletter
+\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
+%\setkomafont{ohead}{\bfseries}
+$if(formation)$
+\ofoot{$if(formation.short)$$formation.short$
+$else$$if(formation.footer)$$formation.footer$
+$else$$if(formation.name)$$formation.name$$else$$formation$$endif$
+$endif$
+$endif$}
+$endif$
+\ifoot{\textcolor{muted}{\textcopyright \the\year, \authorshort$if(institute)$, $institute$$endif$, \faIcon[solid]{creative-commons-by}}}
+\makeatother
+

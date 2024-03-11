@@ -1,0 +1,46 @@
+project:
+  type: book
+  output-dir: _book/
+
+lang: fr
+formation:
+  year: "1^er^"
+  name: "Une Formation"
+  option: "Super Option"
+  short: "1A Fom., SO"
+author:
+  - name: David Folio
+    affiliations:
+      - name: INSA Centre Val de Loire
+        department: Laboratoire Prisme
+        city: Bourges
+        country: France
+        postal-code: 18800
+      - name: Unknown affiliation
+    orcid: 0000-0001-9430-6091
+    email: david.folio@insa-cvl.fr
+
+  - name: John Doe
+    affiliations:
+      - name: Anonymous University
+
+book:
+  output-file: "my-book"
+  genre: "Support de cours"
+  title: "Titre du cours"
+  subtitle: "sous-titre"
+  issued: "2023"
+  date: last-modified
+  chapters:
+    - index.qmd
+  #appendices: #uncomment to add appendices part
+    - references.qmd
+
+bibliography: references.bib
+nocite: |
+  @*
+
+format:
+  insa-cvl-pdf: default
+  insa-cvl-revealjs: default
+  #insa-cvl-book-html: default

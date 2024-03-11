@@ -1,0 +1,36 @@
+---
+lang: en
+title: "Overview of the INSA CVL Revealjs Theme"
+subtitle: "Lecture"
+author: "David FOLIO"
+institute: "[INSA Centre Val de Loire](https://www.insa-centrevaldeloire.fr/fr)"
+date: last-modified
+format:
+  insa-cvl-revealjs:   
+    footer: "Example of lecture"
+---
+
+# Forewords {.unnumbered background-image="images/CVL-lecture.svg" background-size="100%"}
+
+## Lecture overview
+
+- Organization
+- Prerequise
+
+# Lecture 1
+
+
+## About
+
+- Eat spaghetti
+- Drink wine
+
+  $$\delta(x)=\left\{\begin{array}{clc}
+        \infty & \text{si} & t=0 \\
+        0 & \text{sinon} & 
+        \end{array}\right.$$
+
+## Going to sleep
+
+- Get in bed
+- Count sheep

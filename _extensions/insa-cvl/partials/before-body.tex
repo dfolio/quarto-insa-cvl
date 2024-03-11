@@ -1,0 +1,160 @@
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+$if(title)$
+\makeatletter
+\begin{titlepage}%
+\if@titlepageiscoverpage
+  \edef\titlepage@restore{%
+    \noexpand\endgroup
+    \noexpand\global\noexpand\@colht\the\@colht
+    \noexpand\global\noexpand\@colroom\the\@colroom
+    \noexpand\global\vsize\the\vsize
+    \noexpand\global\noexpand\@titlepageiscoverpagefalse
+    \noexpand\let\noexpand\titlepage@restore\noexpand\relax
+  }%
+  \begingroup
+  \topmargin=\dimexpr \coverpagetopmargin-1in\relax
+  \oddsidemargin=\dimexpr \coverpageleftmargin-1in\relax
+  \evensidemargin=\dimexpr \coverpageleftmargin-1in\relax
+  \textwidth=\dimexpr
+  \paperwidth-\coverpageleftmargin-\coverpagerightmargin\relax
+  \textheight=\dimexpr
+  \paperheight-\coverpagetopmargin-\coverpagebottommargin\relax
+  \headheight=0pt
+  \headsep=0pt
+  \footskip=\baselineskip
+  \@colht=\textheight
+  \@colroom=\textheight
+  \vsize=\textheight
+  \columnwidth=\textwidth
+  \hsize=\columnwidth
+  \linewidth=\hsize
+\else
+  \let\titlepage@restore\relax
+\fi
+\let\footnotesize\small
+\let\footnoterule\relax
+\let\footnote\thanks
+\renewcommand*\thefootnote{\@fnsymbol\c@footnote}%
+\let\@oldmakefnmark\@makefnmark
+\renewcommand*{\@makefnmark}{\rlap\@oldmakefnmark}%
+\ifx\@extratitle\@empty
+  \ifx\@frontispiece\@empty
+  \else
+    \if@twoside\mbox{}\next@tpage\fi
+    \noindent\@frontispiece\next@tdpage
+  \fi
+\else
+  \noindent\@extratitle
+  \ifx\@frontispiece\@empty
+  \else
+    \next@tpage
+    \noindent\@frontispiece
+  \fi
+  \next@tdpage
+\fi
+\setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
+$if(titlehead)$
+\ifx\@titlehead\@empty \else
+\begin{minipage}[t]{\textwidth}%
+  \usekomafont{titlehead}{\@titlehead\par}%
+\end{minipage}\par
+\fi
+$else$
+\includegraphics[width=.99\linewidth-4pt]{images/pagetitre_head}
+$endif$
+\null%\vfil
+\begin{center}%
+  \sffamily
+  \vskip.5em plus.5em minus.5em
+  $if(formation)$
+  $for(formation)$
+  {\large\bfseries
+  $if(formation.year)$$formation.year$$endif$
+  $if(formation.name)$$formation.name$$if(formation.option)$, $formation.option$$endif$
+  $else$
+  $if(formation)$$formation$$endif$
+  $endif$
+  }$sep$ \par\vskip1em
+  $endfor$
+  \par\nobreak\vskip2em plus1fill
+  $endif$
+  \setlength{\fboxsep}{2em}
+  \begin{framed}
+  \begin{minipage}{.8\textwidth}
+  \centering
+  \ifx\@subject\@empty \else
+    {\usekomafont{subject}{\@subject\par}}%
+    \vskip 1em plus0.5em
+  \fi
+  {\usekomafont{title}{\huge \@title\par}}%
+  \vskip 1em plus0.5em
+  {\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}%
+  \vskip 2em
+  \end{minipage}\par
+  \end{framed}
+  $if(titlegraphic)$
+  \par\vskip1em\inserttitlegraphic
+  $endif$
+  \par\vskip \z@ \@plus3fill
+  \hrule\par\nobreak
+  \usekomafont{author}{%
+    \lineskip 0.75em
+    \begin{tabular}[t]{c}
+      \@author
+    \end{tabular}\par
+    }%
+  {\usekomafont{publishers}{\@publishers \par}}
+  \vskip1em plus.5em minus.5em
+\end{center}\par
+\@thanks\global\let\@thanks\@empty
+\vfil\null
+\if@twoside
+\@tempswatrue
+\expandafter\ifnum \scr@v@is@ge{3.12}%
+  \ifx\@uppertitleback\@empty\ifx\@lowertitleback\@empty
+    \@tempswafalse
+  \fi\fi
+\fi
+\if@tempswa
+  \next@tpage
+  \begin{minipage}[t]{\textwidth}
+    \@uppertitleback
+  \end{minipage}\par
+  \vfill
+  \begin{minipage}[b]{\textwidth}
+    \@lowertitleback
+  \end{minipage}\par
+  \@thanks\global\let\@thanks\@empty
+\fi
+\else
+\ifx\@uppertitleback\@empty\else
+  \ClassWarning{\KOMAClassName}%
+  {%
+    non empty \string\uppertitleback\space ignored
+    by \string\maketitle\MessageBreak
+    in `twoside=false' mode%
+  }%
+\fi
+\ifx\@lowertitleback\@empty\else
+  \ClassWarning{\KOMAClassName}%
+  {%
+    non empty \string\lowertitleback\space ignored
+    by \string\maketitle\MessageBreak
+    in `twoside=false' mode%
+  }%
+\fi
+\fi
+\ifx\@dedication\@empty
+\else
+\next@tdpage\null\vfill
+{\centering\usekomafont{dedication}{\@dedication \par}}%
+\vskip \z@ \@plus3fill
+\@thanks\global\let\@thanks\@empty
+\cleardoubleemptypage
+\fi
+\ifx\titlepage@restore\relax\else\clearpage\titlepage@restore\fi
+\end{titlepage}
+\makeatother
+$endif$

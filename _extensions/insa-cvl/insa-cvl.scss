@@ -1,0 +1,547 @@
+/*-- scss:defaults --*/
+// Prefix for :root CSS variables
+
+$enable-caret:                true !default;
+$enable-rounded:              true !default;
+$enable-shadows:              true !default;
+$enable-gradients:            true !default;
+$enable-transitions:          true !default;
+$enable-reduced-motion:       true !default;
+$enable-smooth-scroll:        true !default;
+$enable-grid-classes:         true !default;
+$enable-container-classes:    true !default;
+$enable-cssgrid:              false !default;
+$enable-button-pointers:      true !default;
+$enable-rfs:                  true !default;
+$enable-validation-icons:     true !default;
+$enable-negative-margins:     false !default;
+$enable-deprecation-messages: false !default;
+$enable-important-utilities:  true !default;
+
+$enable-dark-mode:            true !default;
+$color-mode-type:             data !default; // `data` or `media-query`
+
+
+$variable-prefix:             df- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
+$prefix:                      $variable-prefix !default;
+// fonts
+// stylelint-disable value-keyword-case
+$font-family-sans        : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-serif       : 'Latin Modern Roman','Times New Roman',Times, serif;
+$font-family-monospace   : SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+$font-size-base          : 1.5rem;
+$font-size-lg            : $font-size-base * 1.25 !default;
+$font-size-sm            : $font-size-base * .875 !default;
+$small-font-size         : 90% !default;
+
+$presentation-font-size-root: $font-size-base;
+$presentation-font-smaller: $small-font-size;
+
+// colors
+$white                   : #FFF !default;
+$gray-100                : #F8F9FA !default;
+$gray-200                : #E9ECEF !default;
+$gray-300                : #DEE2E6 !default;
+$gray-400                : #CED4DA !default;
+$gray-500                : #ADB5BD !default;
+$gray-600                : #6C757D !default;
+$gray-700                : #495057 !default;
+$gray-800                : #343A40 !default;
+$gray-900                : #212529 !default;
+$black                   : #000 !default;
+$dark                    : #4f4d50;
+$blue                    : #007BFF !default;
+$indigo                  : #6610F2 !default;
+$purple                  : #6F42C1 !default;
+$pink                    : #E83E8C !default;
+$red                     : #DC3545 !default;
+$orange                  : #FD7E14 !default;
+$yellow                  : #FFC107 !default;
+$green                   : #28A745 !default;
+$teal                    : #20C997 !default;
+$cyan                    : #17A2B8 !default;
+/// INSA color
+$gray-INSA               : #5F5F61;
+$red-INSA                : #E32518;
+$blue-INSA               : #004C6F;
+$magenta-INSA            : #9B0D45;
+$cyan-INSA               : #208896;
+$tan-INSA                : #846B5C;
+$yellow-INSA             : #E29200;
+/// color theme
+$red                     : $red-INSA;
+$primary                 : $red;
+$secondary               : #9d1747;
+$tertiary                : #587f8e;
+$success                 : $green !default;
+$info                    : $cyan-INSA;
+$warning                 : $magenta-INSA;
+$danger                  : $red !default;
+$example                 : $green;
+$exercice                : $tan-INSA;
+$definition              : $tan-INSA;
+$important               : darken($tan-INSA, 10%);
+$light                   : $gray-100 !default;
+$dark                    : #4F4d50;
+$accent                  : $blue-INSA;
+$alert                   : $red-INSA;
+$emphase                 : rgba($cyan-INSA,1);
+$structure               : rgba($blue-INSA,1);
+$strong                  : $structure;
+$muted                   : $gray-INSA;
+
+$colors: (
+  "blue":       $blue,
+  "indigo":     $indigo,
+  "purple":     $purple,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+  "black":      $black,
+  "white":      $white,
+  "gray":       $gray-600,
+  "gray-dark":  $gray-800
+) !default;
+
+// main colors
+$body-bg: $white;
+$body-color: $black;
+$text-muted: $muted;
+// headings
+$presentation-heading-text-align: left;
+$presentation-heading-font:  $font-family-sans;
+$presentation-heading-color:  $primary;
+$presentation-heading-line-height: 1.25;
+$presentation-heading-letter-spacing: normal;
+$presentation-heading-text-transform: none;
+$presentation-heading-text-shadow:  none;
+$presentation-heading-font-weight: 800;
+$presentation-h1-text-shadow: none; //$dark 2px 2px;
+$presentation-h1-box-shadow: none;
+$presentation-h1-font-size:2.5em;
+$presentation-h2-font-size:1.75em;
+$presentation-h3-font-size:1.5em;
+$presentation-h4-font-size:1em;
+
+$presentation-block-margin: 0.5em;
+
+$presentation-slide-text-align: left;
+$presentation-title-slide-text-align:  $presentation-heading-text-align;
+
+// link colors
+$link-color: rgba($primary,0.4);
+$link-color-hover: lighten($link-color, 10%) !default;
+// list
+$list-margin             : 0 0 0 $presentation-block-margin;
+$sublist-margin          : 0 0 0 $presentation-block-margin;
+$sublist-font-size       : 92.5%;
+$def-margin              : $presentation-block-margin/3 0;
+
+
+// Container padding
+$grid-gutter-width:           1.5rem !default;
+$container-padding-x: $grid-gutter-width !default;
+/* -- scss:mixins --*/
+@each $state, $value in $colors {
+  .#{$state} { color: $value}
+}
+@mixin gradient-bg($color) {
+    background: $color linear-gradient(180deg, mix($body-bg, $color, 25%), $color) repeat-x;
+}
+@mixin border-radius($radius: $border-radius, $fallback-border-radius: false) {
+    border-radius: $radius;
+}
+@mixin box-shadow($shadow...) {
+  $result: ();
+  @if (length($shadow) == 1) {
+    // We can pass `@include box-shadow(none);`
+    $result: $shadow;
+  } @else {
+    // Filter to avoid invalid properties for example `box-shadow: none, 1px 1px black;`
+    @for $i from 1 through length($shadow) {
+      @if nth($shadow, $i) != "none" {
+        $result: append($result, nth($shadow, $i), "comma");
+      }
+    }
+  }
+  @if (length($result) > 0) {
+    box-shadow: $result;
+  }
+}
+// Container mixins
+
+@mixin make-container($gutter: $container-padding-x) {
+  --#{$prefix}gutter-x: #{$gutter};
+  --#{$prefix}gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  padding-left: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// Generate semantic grid columns with these mixins.
+
+@mixin make-row($gutter: $grid-gutter-width) {
+  --#{$prefix}gutter-x: #{$gutter};
+  --#{$prefix}gutter-y: 0;
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  // TODO: Revisit calc order after https://github.com/react-bootstrap/react-bootstrap/issues/6039 is fixed
+  margin-top: calc(-1 * var(--#{$prefix}gutter-y)); // stylelint-disable-line function-disallowed-list
+  margin-right: calc(-.5 * var(--#{$prefix}gutter-x)); // stylelint-disable-line function-disallowed-list
+  margin-left: calc(-.5 * var(--#{$prefix}gutter-x)); // stylelint-disable-line function-disallowed-list
+}
+
+@mixin make-col-ready() {
+  // Add box sizing if only the grid is loaded
+  box-sizing: if(variable-exists(include-column-box-sizing) and $include-column-box-sizing, border-box, null);
+  // Prevent columns from becoming too narrow when at smaller grid tiers by
+  // always setting `width: 100%;`. This works because we set the width
+  // later on to override this initial width.
+  flex-shrink: 0;
+  -webkit-flex-shrink: 0;
+  width: 100%;
+  max-width: 100%; // Prevent `.col-auto`, `.col` (& responsive variants) from breaking out the grid
+  padding-right: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  padding-left: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  margin-top: var(--#{$prefix}gutter-y);
+}
+
+@mixin make-col($size: false, $columns: $grid-columns) {
+  @if $size {
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+    width: percentage(divide($size, $columns));
+
+  } @else {
+    flex: 1 1 0;
+    -webkit-flex: 1 1 0;
+    max-width: 100%;
+  }
+}
+
+@mixin make-col-auto() {
+  flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  width: auto;
+}
+/*-- scss:rules --*/
+
+.reveal {
+
+  .slide-background {
+    &,
+    .slide-background-content {
+      background-image:  url("../../../../../images/CVL-bg-r.svg");
+      background-position: right bottom;
+      background-repeat: no-repeat;
+      background-size: 10%;
+    }
+  }
+
+  .slides {
+    .quarto-title-slide {
+      width: 900px;
+      left: 32px;
+      .quarto-title-block {
+        display: flex;
+        flex-direction: column!important;
+        height:420px;
+        .quarto-title,
+        .quarto-title-subtitle{
+          color         : $white;
+          text-align    : $presentation-title-slide-text-align;
+        }
+        .quarto-title{
+          font-weight   : $presentation-heading-font-weight+100;
+          font-size     : $presentation-h1-font-size;
+        }
+        .quarto-subtitle{
+          font-weight   : $presentation-heading-font-weight;
+          font-size     : $presentation-h2-font-size;
+        }
+      }
+      .quarto-title-authors {
+        display: flex;
+        justify-content: $presentation-title-slide-text-align;
+
+        .quarto-title-author {
+          padding-left: $presentation-author-block-padding-left;
+          padding-right: $presentation-author-block-padding-right;
+
+          a,
+          a:hover,
+          a:visited,
+          a:active {
+            color: inherit;
+            text-decoration: none;
+          }
+
+          .quarto-title-author-name {
+            font-weight   : $presentation-heading-font-weight;
+            margin-bottom: 0.1rem;
+          }
+
+          .quarto-title-author-email {
+            margin-top: 0px;
+            margin-bottom: 0.4em;
+            font-size: 0.6em;
+          }
+
+          .quarto-title-author-orcid {
+            img {
+              margin-bottom: 4px;
+            }
+          }
+
+          .quarto-title-affiliation {
+            font-size: 0.7em;
+            margin-top: 0px;
+            margin-bottom: 8px;
+          }
+
+          .quarto-title-affiliation:first {
+            margin-top: 12px;
+          }
+        }
+      }
+    }
+    .slide{
+      margin          : 0 auto;
+
+      h1{
+        vertical-align: middle;
+        text-align    : $presentation-heading-text-align;
+        font-variant  : small-caps;
+        font-size     : $presentation-h1-font-size;
+        text-transform: capitalize;
+        font-weight   : $presentation-heading-font-weight;
+        text-shadow   : $presentation-h1-text-shadow;
+      }
+
+      h2{
+        font-weight: $presentation-heading-font-weight -100;
+        padding-bottom: 2*$presentation-block-margin;
+      }
+
+      dl,
+      ol,
+      ul {
+        display   : block;
+        text-align: left;
+        //margin    : $list-margin;
+
+        li {
+          margin     : $presentation-block-margin*0.8 0;
+          line-height: 0.9*$presentation-line-height;
+          width      : 100%;
+
+          p {
+            margin: 0;
+          }
+        }
+      }
+      ul {
+        list-style-type: square;
+
+        ul {
+          list-style-type: disc;
+
+          ul {
+            list-style-type: circle;
+            ul {
+            list-style-type: "⋄ ";
+          }
+          }
+        }
+      }
+
+      ol:type(a){
+        list-style-type: alpha;
+      }
+      dd ul,
+      ol ol,
+      ol ul,
+      ul ol,
+      ul ul,
+      ul dl,
+      ol dl, {
+        font-size: $sublist-font-size;
+        margin   : $sublist-margin;
+      }
+
+      blockquote{
+
+      }
+      .center{
+        margin: 0 auto;
+        text-align: center;
+      }
+      
+      .level2{
+        .english, .en,
+        :lang(en){
+          font-style: oblique;
+          font-size:  90%;
+          opacity  : 0.8;
+        }
+      }
+    }
+  }//end slides
+
+  .slide-number {
+    font-size: $small-font-size;
+  }
+  a{
+    color: $blue-INSA;
+  }
+  img{
+    max-width: 100%;
+    max-height: 100%;
+  }
+  img,
+  figcaption{
+    padding: 0;
+    margin: 0;
+  }
+
+  footer,
+  .footer {
+    margin: 0;
+    padding: 0;
+    font-size:$small-font-size;
+    color: rgb($muted,0.6);
+  }
+
+  .table,
+  .figure,
+  figure {
+    justify-content: center;
+    //width      : 100%!important;
+    text-align     : center;
+  }
+
+  .r-stack>*{ width:100%;}
+
+  .structure,
+  b,
+  strong {
+    font-weight: 800;
+    color      : $structure;
+  }
+
+  .emph,
+  .emphase,
+  em {
+      //font-style: italic;
+      color     : $emphase;
+  }
+
+  .example {
+    color      : $example;
+    font-size: 95%;
+  }
+
+  .accent {
+    color: $accent;
+  }
+
+  .alert {
+    color      : $alert;
+    font-weight: 700;
+  }
+  .warning {
+    color      : $warning;
+    font-weight: 600;
+  }
+
+  /* change text*/
+  .small {
+    font-size: $small-font-size;
+    opacity  : 0.8;
+  }
+
+  .smaller {
+    font-size: $small-font-size !important;
+    opacity  : 0.8;
+  }
+  .larger {
+    font-size: larger!important;
+    opacity  : 1;
+  }
+  
+  .theorem{
+    padding: 0em 0.5em;
+    border-left: solid #acacac 0.3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+    flex-direction: column;
+  }
+  .definition{
+    border-left-color: $info ;
+    .theorem-title strong{
+      color: rgba(darken($info,15%),0.6);
+    }
+  }
+  .example{
+    border-left-color: $example;
+    color: rgba(darken($example,40%),0.8);
+    font-size: smaller;
+    .theorem-title strong{
+      color: rgba(darken($example,30%),0.6);
+    }
+  }
+}
+
+.callout{
+  flex-direction: column;
+  .callout-content {
+    width: 100%;
+  }
+}
+
+.reveal .callout.callout-style-default .callout-icon::before,
+.reveal .callout.callout-style-simple .callout-icon::before {
+  height: 1.25rem;
+  width: 1.25rem;
+  background-size: 1.25rem 1.25rem;
+}
+
+.callout:not(.callout-titled) .callout-icon::before {
+  margin-top: 0.25rem!important;
+  padding-right: .5rem;
+}
+
+.callout-important{
+  
+  .structure,
+  b,
+  strong, 
+  emph,
+  .emphase,
+  em{ color: $important;}
+}
+
+.callout-warning{
+  
+  .structure,
+  b,
+  strong, 
+  emph,
+  .emphase,
+  em{ color: $alert;}
+}
+.theorem,
+.definition {
+  padding: 0em 0.5em;
+  border-left: solid $definition .3rem;
+}
