@@ -1,15 +1,12 @@
-
 \usepackage{framed}
 
-\newcommand\titlegraphic[1]{\def\inserttitlegraphic{#1}}
+\providecommand\titlegraphic[1]{\def\inserttitlegraphic{#1}}
 \titlegraphic{}
-
 % titlepage %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\setkomafont{formation}{\large\bfseries}
 \addtokomafont{subject}{\sffamily}
 \addtokomafont{title}{\scshape}
-\setkomafont{author}{\large}
-
+\setkomafont{author}{\normalsize}
 % Set title page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 $if(titlehead)$\titlehead{$titlehead$}$endif$
 $if(titlegraphic)$
@@ -39,15 +36,18 @@ $if(lowertitleback)$
 \lowertitleback{lowertitleback}
 $else$
 \makeatletter
-\lowertitleback{\textcopyright \the\year, \authorshort$if(institute)$, $institute$$endif$, \faIcon[solid]{creative-commons-by}}
+\lowertitleback{\textcopyright \the\year, \authorshort$if(institute)$, $institute$$endif$, \faIcon[solid]{creative-commons-by}
+$if(public-url)$\newline\url{$public-url$}$endif$}
 \makeatother
 $endif$
-
+$if(date)$\date{$date$}$endif$
 
 % head/foot %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[automark,pagestyleset=standard,markcase=used]{scrlayer-scrpage}
 \makeatletter
-\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize}
+\setkomafont{pageheadfoot}{\normalfont\sffamily}
+\setkomafont{pagefoot}{\scriptsize}
+\setkomafont{pagehead}{\footnotesize}
 %\setkomafont{ohead}{\bfseries}
 $if(formation)$
 \ofoot{$if(formation.short)$$formation.short$

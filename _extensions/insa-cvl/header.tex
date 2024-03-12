@@ -90,6 +90,8 @@
 %\setkomafont{chapter}{\normalfont\sffamily\bfseries\scshape}
 \addtokomafont{chapter}{\scshape}
 
+\KOMAoption{chapterprefix}{true}
+\KOMAoption{appendixprefix}{true}
 \makeatletter
 \renewcommand*{\chapterformat}{{\thechapter\autodot}}
 \renewcommand*{\chapterheadmidvskip}{\enskip}
@@ -99,12 +101,10 @@
 \renewcommand{\chapterlineswithprefixformat}[3]{%
 \raggedchapter
 \interlinepenalty\@M
-\parbox{\dimexpr\linewidth-2\fboxrule-2\fboxsep}{%
-\raggedchapter{#2~\textcolor{chapterbarcolor}{\rule[-0.5em]{4pt}{1.75em}}~}#3%
-}
-\par\vskip-0.5em plus0.25em
-\rule{\linewidth}{2pt}%
-\par\nobreak
+\parbox{\dimexpr\linewidth-2\fboxrule-2\fboxsep}{\raggedchapter{#2~\textcolor{chapterbarcolor}{\rule[-0.5em]{4pt}{1.75em}}~#3}}%
+%\par\vskip-0.5em plus0.25em
+%\textcolor{chapterbarcolor!80}{\rule{\linewidth}{2pt}}%
+%\par\nobreak
 }
 \makeatother
 
