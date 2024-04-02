@@ -31,6 +31,7 @@ contributes:
     pdf:
       keep-tex: true
       include-in-header: header.tex
+      book: true
       documentclass: scrbook
       fig-format: pdf
       default-image-extension: pdf

@@ -5,7 +5,7 @@
 \usepackage[version=4]{mhchem}
 \usepackage[]{fontawesome5}
 \usepackage{physics}
-
+\usepackage[european,siunitx]{circuitikz}
 \usepackage{siunitx}
 \sisetup{per-mode = symbol}
 % url %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,6 +82,8 @@
 
 \RedeclareSectionCommand[tocnumwidth=6em]{part}
 % chapter  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter%
+\@ifclassloaded{scrbook}{
 \RedeclareSectionCommand[tocnumwidth=2.5em]{chapter}
 \RedeclareSectionCommand[tocnumwidth=3em]{section}
 \renewcommand\thechapter{{\rmfamily\@Roman\c@chapter}}
@@ -106,12 +108,14 @@
 %\textcolor{chapterbarcolor!80}{\rule{\linewidth}{2pt}}%
 %\par\nobreak
 }
-\makeatother
-
+}{}
+\@ifclassloaded{scrbook}{
 \renewcommand{\chaptermark}[1]{\markboth{\sffamily\footnotesize Chap.\,\thechapter\ #1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\sffamily\footnotesize\thesection\ #1}}
-
 \RedeclareSectionCommand[afterindent=false,beforeskip=0pt]{chapter}
+}{}
+\makeatother
+
 \RedeclareSectionCommand[afterindent=false,beforeskip=0.5\baselineskip,afterskip=0.25\baselineskip]{section}
 \RedeclareSectionCommand[afterindent=false,beforeskip=0.25\baselineskip,afterskip=0.15\baselineskip]{subsection}
 \RedeclareSectionCommand[afterindent=false,beforeskip=0.2\baselineskip,afterskip=0.05\baselineskip]{subsubsection}

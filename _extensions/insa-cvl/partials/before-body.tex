@@ -3,6 +3,7 @@ $if(has-frontmatter)$
 $endif$
 $if(title)$
 \makeatletter
+$if(book)$
 \begin{titlepage}%
 \if@titlepageiscoverpage
   \edef\titlepage@restore{%
@@ -156,5 +157,13 @@ $endif$
 \fi
 \ifx\titlepage@restore\relax\else\clearpage\titlepage@restore\fi
 \end{titlepage}
+$else$
+\maketitle
+$endif$
 \makeatother
+$endif$
+$if(qcm)$
+\setlist[itemize,1]{label={\relsize{-2}\faIcon[solid]{chevron-right}}}
+\setlist[itemize,2]{label={\relsize{-2}\faIcon[regular]{square}}}
+\setlist[itemize,3]{label={\relsize{-3}\faIcon[regular]{circle}}}
 $endif$
