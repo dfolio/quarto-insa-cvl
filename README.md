@@ -24,5 +24,18 @@ To add this format to an existing document:
 quarto add dfolio/quarto-insa-cvl
 ```
 
+## Updating
+
+```bash
+quarto list extensions
+quarto update dfolio/quarto-insa-cvl
+```
+
+## Removing
+
+```bash
+quarto remove  dfolio/quarto-insa-cvl
+quarto list extensions
+```
 
 [Quarto]: https://quarto.org/
