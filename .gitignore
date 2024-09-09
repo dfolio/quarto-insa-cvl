@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+/.luarc.json
+insa-cvl-course.Rproj
+
+/.quarto/
+_freeze/
+
+_book/
