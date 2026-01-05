@@ -1,6 +1,11 @@
+/*-- scss:uses --*/
+@use 'sass:color';
+@use 'sass:math';
+/*-- scss:functions --*/
+@function strip-units($number) {
+  @return math.div($number, ($number * 0 + 1));
+}
 /*-- scss:defaults --*/
-// Prefix for :root CSS variables
-
 $enable-caret:                true !default;
 $enable-rounded:              true !default;
 $enable-shadows:              true !default;
@@ -21,21 +26,23 @@ $enable-important-utilities:  true !default;
 $enable-dark-mode:            true !default;
 $color-mode-type:             data !default; // `data` or `media-query`
 
-
+// Prefix for :root CSS variables
 $variable-prefix:             df- !default; // Deprecated in v5.2.0 for the shorter `$prefix`
 $prefix:                      $variable-prefix !default;
+// Spacing
+$spacer: 1rem !default;
 // fonts
 // stylelint-disable value-keyword-case
-$font-family-sans        : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-$font-family-serif       : 'Latin Modern Roman','Times New Roman',Times, serif;
+$font-family-sans        : Roboto, "Noto Sans", "Segoe UI",  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", -apple-system, BlinkMacSystemFont !default;
+$font-family-serif       : "Noto Serif", JXZERO, MJXTEXM, "Times New Roman",Times, serif;
 $font-family-monospace   : SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
-$font-size-base          : 1.5rem;
+$font-size-base          : 1.6rem !default;
 $font-size-lg            : $font-size-base * 1.25 !default;
 $font-size-sm            : $font-size-base * .875 !default;
-$small-font-size         : 90% !default;
+$small-font-size         : $font-size-sm !default;
 
 $presentation-font-size-root: $font-size-base;
-$presentation-font-smaller: $small-font-size;
+$presentation-font-smaller:   $small-font-size;
 
 // colors
 $white                   : #FFF !default;
@@ -57,7 +64,7 @@ $pink                    : #E83E8C !default;
 $red                     : #DC3545 !default;
 $orange                  : #FD7E14 !default;
 $yellow                  : #FFC107 !default;
-$green                   : #28A745 !default;
+$green                   : #107c10 !default;
 $teal                    : #20C997 !default;
 $cyan                    : #17A2B8 !default;
 /// INSA color
@@ -80,7 +87,7 @@ $danger                  : $red !default;
 $example                 : $green;
 $exercice                : $tan-INSA;
 $definition              : $tan-INSA;
-$important               : darken($tan-INSA, 10%);
+$important               : color.adjust($tan-INSA, $lightness: -10%);
 $light                   : $gray-100 !default;
 $dark                    : #4F4d50;
 $accent                  : $blue-INSA;
@@ -127,25 +134,26 @@ $presentation-h2-font-size:1.75em;
 $presentation-h3-font-size:1.5em;
 $presentation-h4-font-size:1em;
 
-$presentation-block-margin: 0.5em;
+$presentation-block-v-margin: calc($spacer/2);
 
 $presentation-slide-text-align: left;
 $presentation-title-slide-text-align:  $presentation-heading-text-align;
 
 // link colors
 $link-color: rgba($primary,0.4);
-$link-color-hover: lighten($link-color, 10%) !default;
+$link-color-hover: color.adjust($link-color,  $lightness: 10%) !default;
 // list
-$list-margin             : 0 0 0 $presentation-block-margin;
-$sublist-margin          : 0 0 0 $presentation-block-margin;
+$list-margin             : 0 0 0 $presentation-block-v-margin;
+$sublist-margin          : 0 0 0 $presentation-block-v-margin;
 $sublist-font-size       : 92.5%;
-$def-margin              : $presentation-block-margin/3 0;
+$def-margin              : calc($presentation-block-v-margin/3) 0;
 
 
 // Container padding
 $grid-gutter-width:           1.5rem !default;
 $container-padding-x: $grid-gutter-width !default;
 /* -- scss:mixins --*/
+
 @each $state, $value in $colors {
   .#{$state} { color: $value}
 }
@@ -235,10 +243,9 @@ $container-padding-x: $grid-gutter-width !default;
 /*-- scss:rules --*/
 
 .reveal {
-
+  font-family: $font-family-sans ;
   .slide-background {
-    &,
-    .slide-background-content {
+    &, .slide-background-content {
       background-image:  url("../../../../../images/CVL-bg-r.svg");
       background-position: right bottom;
       background-repeat: no-repeat;
@@ -253,9 +260,8 @@ $container-padding-x: $grid-gutter-width !default;
       .quarto-title-block {
         display: flex;
         flex-direction: column!important;
-        height:420px;
-        .quarto-title,
-        .quarto-title-subtitle{
+        height: 420px;
+        .quarto-title, .quarto-subtitle, .quarto-formation {
           color         : $white;
           text-align    : $presentation-title-slide-text-align;
         }
@@ -267,19 +273,17 @@ $container-padding-x: $grid-gutter-width !default;
           font-weight   : $presentation-heading-font-weight;
           font-size     : $presentation-h2-font-size;
         }
+        .quarto-formation{
+          font-weight   : $presentation-heading-font-weight -100;
+          font-size     : $presentation-h3-font-size;
+        }
       }
       .quarto-title-authors {
         display: flex;
         justify-content: $presentation-title-slide-text-align;
 
         .quarto-title-author {
-          padding-left: $presentation-author-block-padding-left;
-          padding-right: $presentation-author-block-padding-right;
-
-          a,
-          a:hover,
-          a:visited,
-          a:active {
+          a, a:hover, a:visited, a:active {
             color: inherit;
             text-decoration: none;
           }
@@ -328,21 +332,18 @@ $container-padding-x: $grid-gutter-width !default;
 
       h2{
         font-weight: $presentation-heading-font-weight -100;
-        padding-bottom: 2*$presentation-block-margin;
+        padding-bottom: calc(0.5*$presentation-block-v-margin);
       }
 
-      dl,
-      ol,
-      ul {
+      dl, ol, ul {
         display   : block;
         text-align: left;
-        //margin    : $list-margin;
+        margin    : $list-margin;
 
         li {
-          margin     : $presentation-block-margin*0.8 0;
-          line-height: 0.9*$presentation-line-height;
-          width      : 100%;
-
+          margin     : $presentation-block-v-margin calc($spacer/2);
+          padding    : 0 calc($spacer/2);
+          line-height: calc(.9*$presentation-line-height);
           p {
             margin: 0;
           }
@@ -350,15 +351,14 @@ $container-padding-x: $grid-gutter-width !default;
       }
       ul {
         list-style-type: square;
-
         ul {
           list-style-type: disc;
-
           ul {
             list-style-type: circle;
             ul {
             list-style-type: "⋄ ";
-          }
+            ul {list-style-type: "‣ ";}
+            }
           }
         }
       }
@@ -366,32 +366,23 @@ $container-padding-x: $grid-gutter-width !default;
       ol:type(a){
         list-style-type: alpha;
       }
-      dd ul,
-      ol ol,
-      ol ul,
-      ul ol,
-      ul ul,
-      ul dl,
-      ol dl, {
+      dd ul, ol ol, ol ul, ul ol, ul ul, ul dl, ol dl, {
         font-size: $sublist-font-size;
         margin   : $sublist-margin;
       }
 
       blockquote{
-
+        margin: 0 $spacer;
       }
       .center{
         margin: 0 auto;
         text-align: center;
+        width: 100%
       }
-      
-      .level2{
-        .english, .en,
-        :lang(en){
-          font-style: oblique;
-          font-size:  90%;
-          opacity  : 0.8;
-        }
+      .right{
+        display: flex;
+        justify-content: flex-end;
+        &>p { margin: 0 auto;}
       }
     }
   }//end slides
@@ -399,6 +390,7 @@ $container-padding-x: $grid-gutter-width !default;
   .slide-number {
     font-size: $small-font-size;
   }
+
   a{
     color: $blue-INSA;
   }
@@ -406,46 +398,44 @@ $container-padding-x: $grid-gutter-width !default;
     max-width: 100%;
     max-height: 100%;
   }
-  img,
-  figcaption{
+  img,{
     padding: 0;
     margin: 0;
   }
 
-  footer,
-  .footer {
+  footer, .footer {
     margin: 0;
     padding: 0;
-    font-size:$small-font-size;
-    color: rgb($muted,0.6);
+    font-size: $small-font-size;
+    color: rgba($muted, 0.6);
   }
-
   .table,
-  .figure,
-  figure {
+  .figure, figure {
     justify-content: center;
-    //width      : 100%!important;
     text-align     : center;
+    &> figcaption.quarto-float-caption-bottom{
+      margin-top   : 0;
+    }
+  }
+  .quarto-figure {
+    margin-bottom: calc($spacer/2);
   }
 
-  .r-stack>*{ width:100%;}
+  //.r-stack>*{ width:100%;}
 
-  .structure,
-  b,
-  strong {
+  .structure, b, strong {
     font-weight: 800;
     color      : $structure;
+    display    : inline;
   }
 
-  .emph,
-  .emphase,
-  em {
-      //font-style: italic;
-      color     : $emphase;
+  .emph, .emphase, em {
+      color    : $emphase;
+      display  : inline;
   }
 
   .example {
-    color      : $example;
+    color    : $example;
     font-size: 95%;
   }
 
@@ -476,9 +466,10 @@ $container-padding-x: $grid-gutter-width !default;
     font-size: larger!important;
     opacity  : 1;
   }
-  
+
   .theorem{
-    padding: 0em 0.5em;
+    margin: calc(1.2*$presentation-block-v-margin);
+    padding: 0 calc(1*$presentation-block-v-margin);
     border-left: solid #acacac 0.3rem;
     border-right: solid 1px silver;
     border-top: solid 1px silver;
@@ -489,17 +480,21 @@ $container-padding-x: $grid-gutter-width !default;
   .definition{
     border-left-color: $info ;
     .theorem-title strong{
-      color: rgba(darken($info,15%),0.6);
+      color: rgba(color.adjust($info, $lightness: -15%),0.6);
     }
   }
   .example{
     border-left-color: $example;
-    color: rgba(darken($example,40%),0.8);
-    font-size: smaller;
+    color: rgba(color.adjust($example,  $lightness: -20%),0.8);
+    font-size: 90%;
     .theorem-title strong{
-      color: rgba(darken($example,30%),0.6);
+      color: rgba(color.adjust($example,  $lightness: -15%),0.6);
     }
   }
+}
+
+.aside-footnote{
+  font-size: $font-size-sm ;
 }
 
 .callout{
@@ -522,26 +517,23 @@ $container-padding-x: $grid-gutter-width !default;
 }
 
 .callout-important{
-  
-  .structure,
-  b,
-  strong, 
-  emph,
-  .emphase,
-  em{ color: $important;}
+  .structure, b, strong,
+  em, .emphase { color: $important;}
 }
 
 .callout-warning{
-  
-  .structure,
-  b,
-  strong, 
-  emph,
-  .emphase,
-  em{ color: $alert;}
+  .structure, b, strong,
+  em, .emphase { color: $alert;}
 }
 .theorem,
 .definition {
   padding: 0em 0.5em;
   border-left: solid $definition .3rem;
+}
+
+.d-none{
+  display: none;
+}
+mjx-container[jax="CHTML"][display="true"] {
+  margin: calc($spacer/4) !important;
 }

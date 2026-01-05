@@ -35,7 +35,7 @@ contributes:
       documentclass: scrbook
       fig-format: pdf
       default-image-extension: pdf
-      classoption: ['openright','twoside', 'chapterprefix','headings=normal','headsepline','footsepline']
+      classoption: ['twoside', 'headings=normal','headsepline','footsepline'] # 'openright', 'chapterprefix',
       toc-depth: 2
       fontsize: 12pt
       sansfont: Noto Sans

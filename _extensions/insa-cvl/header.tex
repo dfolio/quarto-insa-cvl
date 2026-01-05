@@ -75,6 +75,9 @@
     {:}                          % Punctuation after theorem head
     {.5em}                       % Space after theorem head
     {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+% sol  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{sol}{\smaller\color{DarkGreen}{}}
+
 % part  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand*{\addparttocentry}[2]{%
   \addtocentrydefault{part}{\partname\nobreakspace #1}{#2}%
